@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.geometry.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
@@ -7,14 +9,14 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="200.0" prefWidth="320.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="tv2copy.ViewFXMLController">
+<AnchorPane id="AnchorPane" prefHeight="357.0" prefWidth="320.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tv2copy.ViewFXMLController">
     <children>
-      <Pane prefHeight="200.0" prefWidth="320.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <Pane id="basePane" fx:id="basePane" prefHeight="200.0" prefWidth="320.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <Label layoutX="14.0" layoutY="14.0" text="Clock Number:" />
-            <Label layoutX="14.0" layoutY="44.0" text="Channel:" />
-            <TextField id="clockText" fx:id="clockText" layoutX="101.0" layoutY="10.0" prefHeight="25.0" prefWidth="204.0" promptText="Please insert a clock number" />
-            <VBox layoutX="101.0" layoutY="44.0" prefHeight="117.0" prefWidth="204.0" spacing="2.0">
+            <Label layoutX="15.0" layoutY="201.0" text="Channel:" />
+            <TextArea id="clockText" fx:id="clockText" layoutX="103.0" layoutY="14.0" prefHeight="183.0" prefWidth="200.0" />
+            <VBox layoutX="102.0" layoutY="201.0" prefHeight="117.0" prefWidth="204.0" spacing="2.0">
                <children>
                   <RadioButton id="r2Radio" fx:id="r2Radio" mnemonicParsing="false" text="TV2 R2">
                      <toggleGroup>
@@ -31,7 +33,14 @@
                   <Insets />
                </opaqueInsets>
             </VBox>
-            <Button id="submitButton" fx:id="submitButton" layoutX="239.0" layoutY="161.0" onAction="#submitButtonAction" mnemonicParsing="false" text="Submit" />
+            <Button id="submitButton" fx:id="submitButton" layoutX="240.0" layoutY="318.0" mnemonicParsing="false" onAction="#submitButtonAction" text="Submit" />
+         </children>
+      </Pane>
+      <Pane id="alertPane" fx:id="alertPane" layoutX="65.0" layoutY="48.0" prefHeight="107.0" prefWidth="214.0" visible="false" AnchorPane.bottomAnchor="140.0" AnchorPane.leftAnchor="53.0" AnchorPane.rightAnchor="53.0" AnchorPane.topAnchor="110.0">
+         <children>
+            <Rectangle arcHeight="10.0" arcWidth="5.0" fill="#f6fbff" height="106.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.5" width="214.0" />
+            <Button id="alertButton" fx:id="alertButton" layoutX="91.0" layoutY="68.0" mnemonicParsing="false" onAction="#handleAlertButton" text="OK" />
+            <Label id="alertLabel" fx:id="alertLabel" alignment="CENTER" layoutY="14.0" prefHeight="33.0" prefWidth="214.0" />
          </children>
       </Pane>
     </children>
