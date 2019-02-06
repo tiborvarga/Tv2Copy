@@ -8,7 +8,10 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.RandomAccessFile;
 import java.net.URL;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -35,7 +38,8 @@ public class ViewFXMLController implements Initializable {
     protected String fileExt;
     protected String dest;
     protected String spotDest = "uqUEjaw27";
-    protected String nonspotDest = "5wMDuJs7LE";         
+    protected String nonspotDest = "5wMDuJs7LE";
+    protected String todayDate;
     
     @FXML
     private TextArea clockText;
@@ -84,6 +88,7 @@ public class ViewFXMLController implements Initializable {
     @FXML
     private void submitButtonAction(ActionEvent event) {
         dataReader();
+        fileGrabber();
         
         
     }
@@ -96,6 +101,10 @@ public class ViewFXMLController implements Initializable {
     }
     
     private void dataReader(){
+        DateFormat dateFormat = new SimpleDateFormat("yyMMdd");
+	Date date = new Date();
+	todayDate = dateFormat.format(date);
+        
         RadioButton selectedRadioButton = null;
         selectedRadioButton = (RadioButton) channelGroup.getSelectedToggle();
         if (selectedRadioButton == null){
@@ -155,6 +164,8 @@ public class ViewFXMLController implements Initializable {
     }
     
     public void fileGrabber(){
+        new File("I:\\TV2\\" + todayDate).mkdir();
+        
         int port = 21;       
  
         FTPClient ftpClient = new FTPClient();
@@ -166,14 +177,18 @@ public class ViewFXMLController implements Initializable {
             ftpClient.setFileType(FTP.BINARY_FILE_TYPE);
  
             // APPROACH #1: using retrieveFile(String, OutputStream)
-            String remoteFile = clockNumber + fileExt;
-            File downloadFile = new File("I:\\TV2\\" + remoteFile);
-            OutputStream outputStream = new BufferedOutputStream(new FileOutputStream(downloadFile));
-            boolean success = ftpClient.retrieveFile(remoteFile, outputStream);
-            outputStream.close();
+            String remoteFile;
+            for (int i=0; i<clockNumberAL.size(); i++){
+                remoteFile = "";
+                remoteFile = clockNumberAL.get(i) + fileExt;
+                File downloadFile = new File("I:\\TV2\\" + todayDate + "\\" + remoteFile);
+                OutputStream outputStream = new BufferedOutputStream(new FileOutputStream(downloadFile));
+                boolean success = ftpClient.retrieveFile(remoteFile, outputStream);
+                outputStream.close();
  
-            if (success) {
-                System.out.println("File #1 has been downloaded successfully.");
+                if (success) {
+                    System.out.println("File #" + (i+1) + " has been downloaded successfully.");
+                }
             }
         }
         catch (IOException ex) {
